@@ -4,30 +4,30 @@
 #include <set>
 
 int main() {
-    std::set<std::string> set;
-    char operation;
-    std::string word;
+    std::set<std::string> set; //создаем сет для считывания
+    char operation; //для операций объявляем переменную символьную
+    std::string word; //объявляем строку для считывания строки
 
-    while (true) {
-        std::cin >> operation;
-        if (operation == '#') {
+    while (true) { //зацикливаем всё
+        std::cin >> operation; //считываем операцию
+        if (operation == '#') { //создаем концовку для цикла
             break;
         }
 
-        std::cin >> word;
+        std::cin >> word; //через пробел считываем слово
 
-        if (operation == '+') {
+        if (operation == '+') { //операция +, добавляем в сет
             set.insert(word);
         }
-        else if (operation == '-') {
+        else if (operation == '-') { //операция -, удаляем из сет
             set.erase(word);
         }
-        else if (operation == '?') {
+        else if (operation == '?') { //операция ?, проверяем вхождение строки в сет
             if (set.find(word) != set.end()) {
-                std::cout << "YES" << std::endl;
+                std::cout << "YES" << std::endl; //если вхождение есть - YES
             }
             else {
-                std::cout << "NO" << std::endl;
+                std::cout << "NO" << std::endl; //если вхождения нет - NO
             }
         }
     }
