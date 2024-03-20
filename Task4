@@ -4,55 +4,56 @@
 #include <queue>
 
 int main() {
-    std::queue<int> player1, player2; 
+    std::queue<int> player1, player2; //создаем две очереди, так как нам нужно будет класть карты вниз колоды
+                                        // или в конец очереди, а удалять те значения, что вначале
     int card;
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i) { //считываем 5 выданных карт для 1 игрока
         std::cin >> card;
         player1.push(card);
     }
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i) { //считываем 5 выданных карт для 2 игрока
         std::cin >> card;
         player2.push(card);
     }
 
-    long long turns = 0;
+    long long turns = 0; //счетчик для кол-ва ходов
 
-    while (!player1.empty() && !player2.empty() && turns < 1000000) {
-        int top1 = player1.front();
-        player1.pop();
-        int top2 = player2.front();
-        player2.pop();
+    while (!player1.empty() && !player2.empty() && turns < 1000000) { //зациклим игру, до чего-то выгигрыша или ограничения по ходам (по условию)
+        int top1 = player1.front(); //фиксируем первое число(верхнюю карту 1 игрока)
+        player1.pop(); //удалем первую карту игрока 1
+        int top2 = player2.front();  //фиксируем первое число(верхнюю карту 2 игрока)
+        player2.pop(); //удалем первую карту игрока 2
 
-        if (top1 == 0 && top2 == 9) {
-            player1.push(top1);
+        if (top1 == 0 && top2 == 9) { //проверяем первую карту по условию какая выше(0 бьет 9)
+            player1.push(top1); //в этом случае выиграл 1 игрок, он берут карту 1 игрока и карту 2 игрока и кладет вниз колоды, в конец очереди)
             player1.push(top2);
         }
-        else if (top2 == 0 && top1 == 9){
+        else if (top2 == 0 && top1 == 9){ //проверяем первую карту по условию какая выше(0 бьет 9)
+            player2.push(top1); //в этом случае выиграл 2 игрок, он берут карту 1 игрока и карту 2 игрока и кладет вниз колоды, в конец очереди)
+            player2.push(top2);
+        }
+        else if (top1 > top2) { //если карты не равны 0 и 9, то проверяем, чья больше (чья больше, тот и выиграл = забрал карты)
+            player1.push(top1); //если у 1 игрока карта больше, он забирает обе карты(первоого и второго игроков и кладет вниз колоды = конец очереди)
+            player1.push(top2);
+        }
+        else { //тоже самое при выиграше 2 игрока
             player2.push(top1);
             player2.push(top2);
         }
-        else if (top1 > top2) {
-            player1.push(top1);
-            player1.push(top2);
-        }
-        else {
-            player2.push(top1);
-            player2.push(top2);
-        }
 
-        turns++;
+        turns++; //считаем ходы
     }
 
-    if (turns == 1000000) {
+    if (turns == 1000000) { //проверяем кол-во ходов
         std::cout << "botva";
     }
-    else if (player1.empty()) {
-        std::cout << "second " << turns;
+    else if (player1.empty()) { //если с ходами всё ок, то проверяем остались ли карты у 1 игрока (если true, то выиграл 2, тк у первого закончилась колода)
+        std::cout << "second " << turns; //пишем кто выиграл и кол-во ходов для выигрыша
     }
-    else if (player2.empty()){
-        std::cout << "first " << turns;
+    else if (player2.empty()){ //если у 1 остались карты и с ходами всё ок, то у 2 колода пуста и выиграл 1
+        std::cout << "first " << turns; //пишем кто выиграл и кол-во ходов для выигрыша
     }
 
     return 0;
