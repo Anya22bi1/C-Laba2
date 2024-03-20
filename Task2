@@ -11,18 +11,19 @@
 #include <string>
 
 int main() {
-    std::map<int, std::vector<std::string>> studentsByClass;
+    std::map<int, std::vector<std::string>> studentsByClass; //создаем карту, ключом сочтем целочисленное значение - номер класса
+                                                            //в качестве значения возьмем вектор, в котором будем перечислять фамилии тех, кто в этом классе
 
     int classNumber;
     std::string name;
 
-    while (std::cin >> classNumber >> name) {
+    while (std::cin >> classNumber >> name) { //считываем номер класса и фамилию
         studentsByClass[classNumber].push_back(name);
     }
 
-    for (int i = 9; i <= 11; ++i) {
-        for (const std::string& student : studentsByClass[i]) {
-            std::cout << i << " " << student << std::endl;
+    for (int i = 9; i <= 11; ++i) { //проходимся по всем ключам поочередно
+        for (const std::string& student : studentsByClass[i]) { //через строку student итерируемся по ключам созданной карты
+            std::cout << i << " " << student << std::endl; //выводим значение класса и фамилию
         }
     }
 
