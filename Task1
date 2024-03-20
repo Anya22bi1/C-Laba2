@@ -11,16 +11,16 @@
 
 int main() {
     int N;
-    std::cin >> N;
+    std::cin >> N; //считываем кол-во чисел
 
-    std::set<int> numbers;
+    std::set<int> numbers; //создаем сет для работы с числами (особенность сета в том, что в нем не повторяются числа)
     for (int i = 0; i < N; ++i) {
         int num;
-        std::cin >> num;
-        numbers.insert(num);
+        std::cin >> num; //считываем вводимые числа
+        numbers.insert(num); //добавляем их рандомно в сет
     }
 
-    std::cout << numbers.size() << std::endl;
+    std::cout << numbers.size() << std::endl; //выводим размер сета (тк он не хранит одинаковые числа, его размер будет равен числу различных чисел)
 
     return 0;
 }
